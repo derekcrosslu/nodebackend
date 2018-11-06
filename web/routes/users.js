@@ -25,7 +25,7 @@ connection.connect(function(err){
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+  res.send('respond with a resource...');
 });
 
 router.post('/', function(req, res, next) {
@@ -46,6 +46,21 @@ router.get('/datacon', function(req, res, next) {
 });
 
 /* Get routes below */
+
+
+router.get('/dataux', function(req, res){
+	var uxQuery = 'select * from users';
+	// var context = {};
+	connection.query(uxQuery, function(error, results, fields){
+		if(error) throw error;
+		console.log("rendering characters page . . .");
+
+		res.render('dataux', {
+			title: "UX Page",
+			results: results
+		});
+	});
+});
 
 router.get('/datau', function(req, res, next){
 
@@ -78,7 +93,7 @@ router.get('/dataub', function(req, res, next){
 
     var q = 'SELECT * from users';
 
-    connection.query(q, function(error, results, fields){
+    connection.query(q, function(error, results, next){
                 if(error) throw error;
                 console.log("rendering home page . . .");
                 res.send('home' + {results: results} );
