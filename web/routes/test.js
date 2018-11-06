@@ -54,63 +54,45 @@ router.get('/data', function(req, res){
 });
 
 router.get('/username', function(req, res){
-	var qr = 'select username from users';
+	var qr = 'select username from users where id=1';
 	// var context = {};
 	connection.query(qr, function(error, results, fields){
 		if(error) throw error;
     results1 = JSON.stringify(results);
-    results2 = JSON.parse(results1);
-		res.render('index', {
-			title: "username",
-      content1: results1,
-  
-		});
+    res.send(results1)
+    
 	});
 });
 router.get('/password', function(req, res){
-	var qr = 'select password from users';
+	var qr = 'select password from users where id=1';
 	// var context = {};
 	connection.query(qr, function(error, results, fields){
 		if(error) throw error;
     results1 = JSON.stringify(results);
-    results2 = JSON.parse(results1);
-		res.render('index', {
-			title: "password",
-      content1: results1,
-  
-		});
+		res.send(results1)
 	});
 });
 
 router.get('/wifimacaddr', function(req, res){
-	var qr = 'select wifimacaddr from users';
+	var qr = 'select wifimacaddr from users where id=1';
 	// var context = {};
 	connection.query(qr, function(error, results, fields){
 		if(error) throw error;
     results1 = JSON.stringify(results);
-    results2 = JSON.parse(results1);
-		res.render('index', {
-			title: "wifimacaddr",
-      content1: results1,
-  
-		});
+		res.send(results1)
 	});
 });
 
 router.get('/accountType', function(req, res){
-	var qr = 'select accountType from users';
+	var qr = 'select accountType from users where id=1';
 	// var context = {};
 	connection.query(qr, function(error, results, fields){
 		if(error) throw error;
     results1 = JSON.stringify(results);
-    results2 = JSON.parse(results1);
-		res.render('index', {
-			title: "accountType",
-      content1: results1,
-  
-		});
+		res.send(results1)
 	});
 });
+
 
 router.get('/all', function(req, res){
 	var qr = 'select * from users';
