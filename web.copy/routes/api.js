@@ -4,7 +4,7 @@ var router = express.Router();
 
 router.get('/', function(req, res, next) {
   console.log('using res.send')
-  res.send('respond with a resource api');
+  res.send('ahoy!');
 });
 
 
@@ -30,11 +30,10 @@ connection.connect(function(err){
 });
 
 
-router.get('/username', function(req, res){
-    req = JSON.stringify(req);
-    console.log("req is: " + req);
-	var qr = 'select username from users';
-	// var context = {};
+router.get('/usr/:uid/:upw', function(req, res){
+    
+	var qr = `select * from users where username=${req.params.uid}`;
+
 	connection.query(qr, function(error, results, fields){
 		if(error) throw error;
     results1 = JSON.stringify(results);
@@ -43,4 +42,3 @@ router.get('/username', function(req, res){
 	});
 });
 
-module.exports = router;
