@@ -58,6 +58,7 @@ app.get('/api/:uid/:upw/:wma', function (req, res, next) {
     console.log('req.params.upw:', req.params.upw);
     console.log('password md5:', md5(req.params.upw));
     console.log('results2[0].SECRET_QUESTION:', results2[0].SECRET_QUESTION);
+    console.log('req.params.wma:', req.params.wma);
   });
 
   });
