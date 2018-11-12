@@ -1,7 +1,7 @@
 
 const express = require('express');
 var md5 = require('md5');
-
+var wifimacaddress = 'abc123';
 var app = express();
 const bodyParser = require('body-parser')
 
@@ -79,7 +79,7 @@ app.get('/api/:uid/:upw/:wma', function (req, res, next) {
         res.send("invalid password");
       } 
 
-      if(results2[0].PASSCODE!=req.params.wma){
+      if(wifimacaddress!=req.params.wma){
         res.send("wifimacaddress not registered");
       } 
 
