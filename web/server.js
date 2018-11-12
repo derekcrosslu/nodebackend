@@ -1,5 +1,6 @@
 
 const express = require('express');
+var md5 = require('md5');
 
 var app = express();
 const bodyParser = require('body-parser')
@@ -42,18 +43,28 @@ connection.connect(function(err){
 
 
 
-app.get('/usr/db/:uid/:upw/:wma', function (req, res, next) {
-  res.send(req.params.upw);
-    console.log('Request Type:', req.method);
-    console.log('username:', req.params.uid);
-    console.log('password:', req.params.upw);
-    console.log('wifimacaddr:', req.params.wma);
+app.get('/api/:uid/:upw/:wma', function (req, res, next) {
+  var uidx = req.params.uid.toString()
+  var qr = `select * from vdm_person where email='${uidx}'`;
+
+  connection.query(qr, function(error, results, fields){
+    res.send("check console ");
+    results1 = JSON.stringify(results);
+    results2 = JSON.parse(results1);
+    console.log('results2[0]:', results2[0]);
+    console.log('username req:', req.params.uid);
+    console.log('username db:', results2[0].EMAIL);
+    console.log('password:', results2[0].PASSWORD);
+    console.log('req.params.upw:', req.params.upw);
+    console.log('password md5:', md5(req.params.upw));
+    console.log('results2[0].SECRET_QUESTION:', results2[0].SECRET_QUESTION);
+  });
 
   });
   
-  app.post('/usr/db/:uid/:upw/:wma', function(req, res){
+  app.post('/api/:uid/:upw/:wma', function(req, res){
     var uidx = req.params.uid.toString()
-    var qr = `select * from users where username='${uidx}'`;
+    var qr = `select * from vdm_person where email='${uidx}'`;
 
     connection.query(qr, function(error, results, fields){
 
@@ -64,11 +75,11 @@ app.get('/usr/db/:uid/:upw/:wma', function (req, res, next) {
         res.send("invalid username ");
       }
 
-      if(results2[0].password != req.params.upw  ){
+      if(results2[0].PASSWORD != md5(req.params.upw)  ){
         res.send("invalid password");
       } 
 
-      if(results2[0].wifimacaddr!=req.params.wma){
+      if(results2[0].PASSCODE!=req.params.wma){
         res.send("wifimacaddress not registered");
       } 
 
